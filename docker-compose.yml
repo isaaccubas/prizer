@@ -1,0 +1,24 @@
+# ./docker-compose.yml
+version: '3'
+
+services:
+  app:
+    image: adhocore/lemp:7.4
+    # For different app you can use different names. (eg: )
+    container_name: prizer
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./:/var/www/html/prizer
+      # Here you can also volume php ini settings
+      # - /path/to/zz-overrides:/usr/local/etc/php/conf.d/zz-overrides.ini
+    ports:
+      - 8080:80
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecurepwd
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: dbusr
+      MYSQL_PASSWORD: securepwd
+      # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
+
+volumes:
+  db_data: {}
